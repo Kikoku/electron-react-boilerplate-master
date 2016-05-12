@@ -21,7 +21,7 @@ class PusherApp extends Component {
   }
 
   commentSubmit(message) {
-    fetch('/message', {
+    fetch('https://murmuring-beyond-44790.herokuapp.com/message', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
