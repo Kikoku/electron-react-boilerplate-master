@@ -1,18 +1,21 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
 import { Router, hashHistory } from 'react-router';
+import { createStore, combineReducers } from 'redux';
 import { syncHistoryWithStore } from 'react-router-redux';
-import routes from './routes';
-import configureStore from './store/configureStore';
-import './app.global.css';
+import { Provider } from 'react-redux';
 
-const store = configureStore();
+import * as reducers from './reducers';
+import routes from './routes';
+
+const reducer = combineReducers(reducers);
+const store = createStore(reducer);
+
 const history = syncHistoryWithStore(hashHistory, store);
 
 render(
   <Provider store={store}>
-    <Router history={history} routes={routes} />
+    <Router routes={routes} history={history}/>
   </Provider>,
   document.getElementById('root')
 );

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import App from './containers/App';
-import HomePage from './containers/HomePage';
-import CounterPage from './containers/CounterPage';
 
+import Workspace from './modules/Workspace';
+import Home from './modules/Home';
+import PusherApp from './modules/PusherApp';
 
 export default (
-  <Route path="/" component={App}>
-    <IndexRoute component={HomePage} />
-    <Route path="/counter" component={CounterPage} />
+  <Route path="/" component={Workspace}>
+    <IndexRoute component={Home}/>
+    <Route path="pusher" component={PusherApp}/>
   </Route>
-);
+)
