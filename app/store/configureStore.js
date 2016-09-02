@@ -1,5 +1,15 @@
-if (process.env.NODE_ENV === 'production') {
-  module.exports = require('./configureStore.production');
-} else {
-  module.exports = require('./configureStore.development');
-}
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from '../reducers';
+import promiseMiddleware from '../middleware/promiseMiddleware';
+
+const middleware = [
+  thunk,
+  promiseMiddleware,
+]
+
+const finalCreateStore = applyMiddleware(...middleware)(createStore);
+
+const store = finalCreateStore(rootReducer);
+
+export default store;

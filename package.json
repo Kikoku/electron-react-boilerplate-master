@@ -1,13 +1,21 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
-  "version": "0.10.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "name": "Balance",
+  "productName": "Balance",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Elo management system",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kikoku/balance"
+  },
+  "author": "Collin Delphia <candrew022@gmail.com> (http://github.com/kikoku)",
+  "license": "Copyright 2016 Collin Delphia",
+  "homepage": "https://github.com/kikoku/balance",
+  "bugs": {
+    "url": "https://github.com/kikoku/balance"
+  },
   "main": "main.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test mocha --compilers js:babel-register --recursive --require ./test/setup.js test/**/*.spec.js",
-    "test-watch": "npm test -- --watch",
-    "test-e2e": "cross-env NODE_ENV=test mocha --compilers js:babel-register --require ./test/setup.js --require co-mocha ./test/e2e.js",
     "lint": "eslint app test *.js",
     "hot-server": "node -r babel-register server.js",
     "build-main": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.electron.js --progress --profile --colors",
@@ -72,6 +80,7 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
+    "axios": "^0.14.0",
     "css-modules-require-hook": "^4.0.0",
     "electron-debug": "^0.6.0",
     "font-awesome": "^4.6.1",
@@ -83,7 +92,8 @@
     "react-router-redux": "^4.0.2",
     "redux": "^3.4.0",
     "redux-thunk": "^2.0.1",
-    "source-map-support": "^0.4.0"
+    "source-map-support": "^0.4.0",
+    "xml2js": "^0.4.17"
   },
   "devEngines": {
     "node": "4.x || 5.x || 6.x",
