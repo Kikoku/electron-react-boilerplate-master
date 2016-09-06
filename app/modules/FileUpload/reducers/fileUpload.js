@@ -33,6 +33,7 @@ const fileUpload = (state = defaultState, action) => {
       const { eventguid, sanctionnumber, title, startdate} = action.res.data
 
       return {
+          ...state,
           rounds: action.rounds,
           matches: action.matches,
           players: action.players,
@@ -61,7 +62,6 @@ const fileUpload = (state = defaultState, action) => {
     case types.CALCULATE_ELO: {
       return {
         ...state,
-        players: action.res.data,
         submitted: true
       }
     }

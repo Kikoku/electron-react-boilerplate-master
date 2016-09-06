@@ -18,6 +18,7 @@ const style={
 
 class FileUploadPage extends Component {
   render() {
+
     return (
       <div>
         <nav
@@ -54,7 +55,6 @@ class FileUploadPage extends Component {
                 <EventContainer
                   title={this.props.state.title}
                   sanctionnumber={this.props.state.sanctionnumber}
-                  onChangeHandler={(e) => this.props.actions.mountNewFile(e.target.files[0])}
                   fileName={this.props.state.fileName}
                   eventguid={this.props.state.eventguid}
                   submitted={this.props.state.submitted}
@@ -62,7 +62,7 @@ class FileUploadPage extends Component {
                 />
                 {
                   this.props.state.errors.map((error, i) => (
-                    <ErrorContainer error={error} />
+                    <ErrorContainer key={i} error={error} />
                   ))
                 }
               </div>

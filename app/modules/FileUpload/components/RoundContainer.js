@@ -10,6 +10,7 @@ class RoundContainer extends Component {
           this.props.matches.map((match, i) => (
             <div className="well well-sm">
               <MatchContainer
+                key={i}
                 match={match}
               />
             </div>

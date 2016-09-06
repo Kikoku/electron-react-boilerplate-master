@@ -1,10 +1,14 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import * as fileUploadActions from '../actions/fileUploadActions';
 
 const style = {
   backgroundColor: '#fff'
 }
 
-const UploadContainer = ({onChangeHandler, fileName}) => (
+const UploadContainer = ({mountNewFile, fileName}) => (
   <div className="input-group">
     <label className="input-group-btn">
       <span
@@ -18,7 +22,7 @@ const UploadContainer = ({onChangeHandler, fileName}) => (
       id="uploadButton"
       type="file"
       style={{display: 'none'}}
-      onChange={(e) => onChangeHandler(e)}
+      onChange={(e) => mountNewFile(e.target.files[0])}
     />
     <input
       type="text"
@@ -30,5 +34,8 @@ const UploadContainer = ({onChangeHandler, fileName}) => (
   </div>
 )
 
-
-export default UploadContainer;
+export default connect(state => ({
+  fileName: state.fileUpload.fileName
+}),(dispatch) => ({
+  mountNewFile: bindActionCreators(fileUploadActions, dispatch).mountNewFile
+}))(UploadContainer);

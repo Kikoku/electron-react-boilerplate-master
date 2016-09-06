@@ -1,5 +1,9 @@
 import React from 'react';
 import UploadContainer from './UploadContainer';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import * as fileUploadActions from '../actions/fileUploadActions';
 
 const style = {
   input: {
@@ -11,7 +15,7 @@ const style = {
   }
 }
 
-const EventContainer = ({title, sanctionnumber, onFileMount, fileName, eventguid, onFileSubmit, submitted, mounted}) => (
+const EventContainer = ({title, sanctionnumber, eventguid, calculateElo, submitted, mounted, players, matches, rounds}) => (
   <div className="panel panel-primary">
     <div className="panel-heading">
       Event
@@ -19,10 +23,7 @@ const EventContainer = ({title, sanctionnumber, onFileMount, fileName, eventguid
     <div className="panel-body">
       <div className="row">
         <div className="col-md-12" style={style.col}>
-          <UploadContainer
-            onChangeHandler={onFileMount}
-            fileName={fileName}
-          />
+          <UploadContainer />
         </div>
       </div>
       <div className="row">
@@ -73,8 +74,8 @@ const EventContainer = ({title, sanctionnumber, onFileMount, fileName, eventguid
         <div className="col-xs-12" style={style.col}>
           <button
             className="btn btn-primary pull-right"
-            onClick={onFileSubmit}
-            disabled={submitted || mounted == false ? true : false}
+            onClick={() => calculateElo(players, matches, rounds)}
+            disabled={submitted || mounted === false ? true : false}
           >
             Submit
           </button>
@@ -84,4 +85,15 @@ const EventContainer = ({title, sanctionnumber, onFileMount, fileName, eventguid
   </div>
 )
 
-export default EventContainer;
+export default connect(state => ({
+  title: state.fileUpload.title,
+  sanctionnumber: state.fileUpload.sanctionnumber,
+  eventguid: state.fileUpload.eventguid,
+  submitted: state.fileUpload.submitted,
+  mounted: state.fileUpload.mounted,
+  players: state.fileUpload.players,
+  matches: state.fileUpload.matches,
+  rounds: state.fileUpload.rounds
+}),(dispatch) => ({
+  calculateElo: bindActionCreators(fileUploadActions, dispatch).calculateElo
+}))(EventContainer);

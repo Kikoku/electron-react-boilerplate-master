@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class PlayersContainer extends Component {
   render() {
+    console.log(this.props)
     return (
       <div className="panel panel-primary">
         <div className="panel-heading">
@@ -27,7 +28,7 @@ class PlayersContainer extends Component {
           <tbody>
           {
             this.props.players.map((player, i) => (
-              <tr>
+              <tr key={i}>
                 <th>
                   {i + 1}
                 </th>

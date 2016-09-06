@@ -12,6 +12,7 @@ class RoundsContainer extends Component {
           {
             [...Array(this.props.rounds)].map((x, i) => (
               <RoundContainer
+                key={i}
                 number={i + 1}
                 matches={this.props.matches.filter((match) => parseInt(match.number, 10) === i + 1)}
               />
