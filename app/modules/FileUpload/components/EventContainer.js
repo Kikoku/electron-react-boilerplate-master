@@ -11,7 +11,7 @@ const style = {
   }
 }
 
-const EventContainer = ({title, sanctionnumber, onFileMount, fileName, eventguid, onFileSubmit}) => (
+const EventContainer = ({title, sanctionnumber, onFileMount, fileName, eventguid, onFileSubmit, submitted, mounted}) => (
   <div className="panel panel-primary">
     <div className="panel-heading">
       Event
@@ -74,6 +74,7 @@ const EventContainer = ({title, sanctionnumber, onFileMount, fileName, eventguid
           <button
             className="btn btn-primary pull-right"
             onClick={onFileSubmit}
+            disabled={submitted || mounted == false ? true : false}
           >
             Submit
           </button>

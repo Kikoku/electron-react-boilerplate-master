@@ -10,8 +10,10 @@ export const defaultState = {
   startdate: '',
   mounting: false,
   building: false,
+  mounted: false,
   errors: [],
-  fileName: ''
+  fileName: '',
+  submitted: false
 }
 
 const fileUpload = (state = defaultState, action) => {
@@ -39,7 +41,8 @@ const fileUpload = (state = defaultState, action) => {
           title,
           startdate,
           mounting: false,
-          errors: []
+          errors: [],
+          mounted: true
       }
     }
 
@@ -58,7 +61,8 @@ const fileUpload = (state = defaultState, action) => {
     case types.CALCULATE_ELO: {
       return {
         ...state,
-        players: action.res.data
+        players: action.res.data,
+        submitted: true
       }
     }
 

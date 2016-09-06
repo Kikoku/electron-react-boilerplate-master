@@ -57,6 +57,8 @@ class FileUploadPage extends Component {
                   onChangeHandler={(e) => this.props.actions.mountNewFile(e.target.files[0])}
                   fileName={this.props.state.fileName}
                   eventguid={this.props.state.eventguid}
+                  submitted={this.props.state.submitted}
+                  mounted={this.props.state.mounted}
                 />
                 {
                   this.props.state.errors.map((error, i) => (
