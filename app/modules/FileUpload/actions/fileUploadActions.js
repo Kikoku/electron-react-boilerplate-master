@@ -92,14 +92,40 @@ export function calculateElo(players, matches, rounds) {
   matches.forEach((match) => {
 
     let playerElo = players.filter((player) => player.dci === match.person.dci)[0];
-    let opponentElo = players.filter((player) => player.dci === match.person.dci)[0];
+    let opponentElo = players.filter((player) => player.dci === match.opponent.dci)[0];
+
+    if(!opponentElo) {
+      opponentElo = {
+        first: 'BUY',
+        middle: 'BUY',
+        last: 'BUY',
+        dci: 'BUY',
+        country: 'BUY',
+        elo: 1600
+      }
+    }
 
     players = players.map((player) => {
       if(player.dci === match.person.dci) {
-        player.elo += eloUpdate(12, match.outcome === "2" ? .5 : match.win > match.loss ? 1 : 0, playerElo.elo, opponentElo.elo)
+        player.elo += eloUpdate(12, match.outcome === "2" ? .5 : match.win > match.loss ? 1 : 0, playerElo.elo, opponentElo.elo);
+        if(match.outcome === "2") {
+          player.draws += 1;
+        } else if( match.win > match.loss) {
+          player.wins += 1;
+        } else {
+          player.losses += 1;
+        }
       } else if(player.dci === match.opponent.dci) {
-        player.elo += eloUpdate(12, match.outcome === "2" ? .5 : match.win < match.loss ? 1 : 0, opponentElo.elo, playerElo.elo)
+        player.elo += eloUpdate(12, match.outcome === "2" ? .5 : match.win < match.loss ? 1 : 0, opponentElo.elo, playerElo.elo);
+        if(match.outcome === "2") {
+          player.draws += 1;
+        } else if (match.win < match.loss) {
+          player.wins += 1;
+        } else {
+          player.losses += 1;
+        }
       }
+      player.elo = Math.round(player.elo)
       return player;
     })
   })
