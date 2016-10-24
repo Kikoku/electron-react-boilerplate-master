@@ -36,7 +36,10 @@ const fileUpload = (state = defaultState, action) => {
           ...state,
           rounds: action.rounds,
           matches: action.matches,
-          players: action.players,
+          players: action.players.map((player) => {
+            player.change = 0;
+            return player;
+          }),
           eventguid,
           sanctionnumber,
           title,
