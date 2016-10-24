@@ -84,13 +84,12 @@ function eloUpdate(k, result, pElo, oElo) {
 
   let change = K * (R - E);
 
-  return change;
+  return parseInt(change.toFixed(2));
 
 }
 
 export function calculateElo(players, matches, rounds) {
   matches.forEach((match) => {
-
     let playerElo = players.filter((player) => player.dci === match.person.dci)[0];
     let opponentElo = players.filter((player) => player.dci === match.opponent.dci)[0];
 
@@ -107,7 +106,9 @@ export function calculateElo(players, matches, rounds) {
 
     players = players.map((player) => {
       if(player.dci === match.person.dci) {
-        player.elo += eloUpdate(12, match.outcome === "2" ? .5 : match.win > match.loss ? 1 : 0, playerElo.elo, opponentElo.elo);
+        let change = eloUpdate(12, match.outcome === "2" ? .5 : match.win > match.loss ? 1 : 0, playerElo.elo, opponentElo.elo);
+        player.change += change;
+        player.elo += change;
         if(match.outcome === "2") {
           player.draws += 1;
         } else if( match.win > match.loss) {
@@ -116,7 +117,9 @@ export function calculateElo(players, matches, rounds) {
           player.losses += 1;
         }
       } else if(player.dci === match.opponent.dci) {
-        player.elo += eloUpdate(12, match.outcome === "2" ? .5 : match.win < match.loss ? 1 : 0, opponentElo.elo, playerElo.elo);
+        let change = eloUpdate(12, match.outcome === "2" ? .5 : match.win < match.loss ? 1 : 0, opponentElo.elo, playerElo.elo);
+        player.change += change;
+        player.elo += change;
         if(match.outcome === "2") {
           player.draws += 1;
         } else if (match.win < match.loss) {
@@ -125,7 +128,6 @@ export function calculateElo(players, matches, rounds) {
           player.losses += 1;
         }
       }
-      player.elo = Math.round(player.elo)
       return player;
     })
   })
